@@ -1,8 +1,8 @@
 site_name: EE5419 ROS
-site_url: "https://your-site-url.com"
+site_url: "https://kingbenny101.github.io/EE5419-ROS/"
 site_author: "Benstin Davis"
-repo_url: "https://github.com/kingbenny101/countapp"
-repo_name: "GitHub Repository"
+repo_url: "https://github.com/KingBenny101/EE5419-ROS/"
+repo_name: "KingBenny101/EE5419-ROS/"
 
 nav:
   - Home: index.md
@@ -32,4 +32,4 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/kingbenny101/countapp
+      link: https://github.com/KingBenny101/EE5419-ROS/
