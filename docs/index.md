@@ -1,6 +1,6 @@
 # EE5419 Advanced Control Laboratory – IIT Madras
 
-This is a guide for experiments related to ROS in the EE5419 Advanced Control Laboratory course at IIT Madras.
+This is a guide for experiments related to ROS in the [EE5419 Advanced Control Laboratory](https://www.ee.iitm.ac.in/courses/syllabus/EE5419) course at IIT Madras.
 
 For the original documentation visit [original docs](https://docs.google.com/document/d/1pQMcXM4Eel9xM6bWdggSrqgIPPWc9-T8HNgE54NhdSk/edit?pli=1&tab=t.0).
 
