@@ -16,9 +16,6 @@ nav:
 
 theme:
   name: "material"
-  font:
-    text: "Roboto"
-    code: "Roboto Mono"
   features:
     - navigation.top
     - navigation.instant
