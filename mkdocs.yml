@@ -8,7 +8,10 @@ nav:
   - Home: index.md
   - Getting Started: getting_started.md
   - Experiments: 
-    - Gazebo: experiments/gazebo.md
+    - Path Planning with Turtlebot3:
+      - Introduction: experiments/path_planning/introduction.md
+      - Gazebo: experiments/path_planning/gazebo.md
+      - Hardware: experiments/path_planning/hardware.md
   - About: about.md
 
 theme:
@@ -24,10 +27,34 @@ theme:
     - header.autohide
     - toc.follow
     - search.suggest
-
+    - content.code.copy
   plugins:
     - search
     - optimize
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 extra:
   social:
