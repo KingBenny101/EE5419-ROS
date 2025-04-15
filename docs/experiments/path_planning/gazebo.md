@@ -23,7 +23,7 @@ source ~/catkin_ws/devel/setup.bash
 
 ```bash
 export TURTLEBOT3_MODEL=burger
-roslaunch turtlebot3_gazebo turtlebot3_world.launch
+roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 ```
 
 ## Operate using Teleop
