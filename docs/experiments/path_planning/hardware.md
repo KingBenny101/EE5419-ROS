@@ -109,7 +109,7 @@ cat /opt/ros/noetic/share/turtlebot3_teleop/launch/turtlebot3_teleop_key.launch
 - Now save the file and run the following command to launch the teleop node:
 
 ```bash
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch namespace:=tb3_3
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch namespace:=/tb3_3
 ```
 
 - Now you can control the third TurtleBot3 robot using the keyboard.
