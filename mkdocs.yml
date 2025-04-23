@@ -1,21 +1,25 @@
 site_name: EE5419 ROS
-site_url: "https://kingbenny101.github.io/EE5419-ROS/"
-site_author: "Benstin Davis"
-repo_url: "https://github.com/KingBenny101/EE5419-ROS/"
-repo_name: "KingBenny101/EE5419-ROS"
+site_url: 'https://kingbenny101.github.io/EE5419-ROS/'
+site_author: 'Benstin Davis'
+repo_url: 'https://github.com/KingBenny101/EE5419-ROS/'
+repo_name: 'KingBenny101/EE5419-ROS'
 
 nav:
   - Home: index.md
   - Getting Started: getting_started.md
-  - Experiments: 
-    - Path Planning with Turtlebot3:
-      - Introduction: experiments/path_planning/introduction.md
-      - Gazebo: experiments/path_planning/gazebo.md
-      - Hardware: experiments/path_planning/hardware.md
+  - Exercises:
+      - Number Publisher and Subscriber: exercises/publisher_subscriber.md
+      - Reset Service using std_srvs: exercises/reset_service.md
+      - Custom Service: exercises/custom_service_client.md
+  - Experiments:
+      - Path Planning with Turtlebot3:
+          - Introduction: experiments/path_planning/introduction.md
+          - Gazebo: experiments/path_planning/gazebo.md
+          - Hardware: experiments/path_planning/hardware.md
   - About: about.md
 
 theme:
-  name: "material"
+  name: 'material'
   features:
     - navigation.top
     - navigation.instant
@@ -29,16 +33,16 @@ theme:
     - search
     - optimize
   palette:
-    - media: "(prefers-color-scheme)"
+    - media: '(prefers-color-scheme)'
       toggle:
         icon: material/brightness-auto
         name: Switch to light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default 
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       toggle:
         icon: material/brightness-4
