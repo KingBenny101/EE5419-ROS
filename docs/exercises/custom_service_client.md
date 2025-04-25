@@ -71,7 +71,6 @@ touch battery.py
 
 ```python
 #!/usr/bin/env python
-
 import rospy
 from exercises.srv import SetLED
 from rospy import Timer, Duration
@@ -80,37 +79,54 @@ from std_msgs.msg import Bool
 class Battery:
     def __init__(self):
         rospy.init_node('battery_node')
-        self.client = rospy.ServiceProxy('set_led', SetLED)
-        rospy.wait_for_service('set_led')
         self.is_full = True
-        rospy.loginfo("Battery node starting (initially full).")
+        rospy.loginfo("Battery node started (initially full).")
 
-        self.toggle_timer = Timer(Duration(7 if self.is_full else 3),
-                                  self.toggle_battery,
-                                  oneshot=True)
+        self.on_time = 7
+        self.charge_time = 3
+        self.current_time = 0
+        self.cycle_time = 0
 
-        rospy.spin()
+        self.battery_clock()
 
-    def toggle_battery(self, event):
-        self.is_full = not self.is_full
-        state_str = "full" if self.is_full else "empty"
-        rospy.loginfo(f"Battery is now {state_str}.")
+    def battery_clock(self):
+        while not rospy.is_shutdown():
+            self.current_time += 1
+            self.cycle_time += 1
 
-        led_idx = 0
+            if self.is_full:
+                if self.cycle_time >= self.on_time:
+                    self.is_full = False
+                    rospy.loginfo("Battery is now empty.")
+                    self.cycle_time = 0
+                    self.toggle_led(0, 1)
+                    self.toggle_led(1, 1)
+                    self.toggle_led(2, 1)
+                    # self.toggle_led(3, 1)
+            else:
+                if self.cycle_time >= self.charge_time:
+                    self.is_full = True
+                    rospy.loginfo("Battery is now full.")
+                    self.cycle_time = 0
+                    self.toggle_led(0, 0)
+                    self.toggle_led(1, 0)
+                    self.toggle_led(2, 0)
+        
+            rospy.sleep(1)
+
+
+    def toggle_led(self, led_idx = 0,led_on = 0 ):
+        rospy.wait_for_service('set_led')
         try:
-            resp = self.client(led_idx, int(not self.is_full))
+            client = rospy.ServiceProxy('set_led', SetLED)
+            resp = client(led_idx, led_on)
             if resp.success:
-                rospy.loginfo(f"Successfully set LED {led_idx} to {int(not self.is_full)}")
+                rospy.loginfo(f"Successfully set LED {led_idx} to {led_on}")
             else:
                 rospy.logwarn("Service call failed or invalid LED number.")
         except rospy.ServiceException as e:
             rospy.logerr(f"Service call exception: {e}")
 
-
-        next_interval = 7 if self.is_full else 3
-        self.toggle_timer = Timer(Duration(next_interval),
-                                  self.toggle_battery,
-                                  oneshot=True)
 
 if __name__ == '__main__':
     Battery()
@@ -131,32 +147,29 @@ touch led_panel.py
 #!/usr/bin/env python
 import rospy
 from exercises.srv import SetLED, SetLEDResponse
-from threading import Lock
 
 class LEDPanel:
     def __init__(self):
         rospy.init_node('led_panel')
         self.led_states = [0, 0, 0]
-        self.lock = Lock()
 
         self.srv = rospy.Service('set_led', SetLED, self.handle_set_led)
+
         rospy.Timer(rospy.Duration(1), self.print_states)
 
         rospy.loginfo("LED panel service ready.")
         rospy.spin()
 
     def handle_set_led(self, req):
-        with self.lock:
-            if 0 <= req.led_number < len(self.led_states):
-                self.led_states[req.led_number] = req.state
-                rospy.loginfo(f"LED {req.led_number} set to {req.state}")
-                return SetLEDResponse(success=True)
-            else:
-                rospy.logwarn(f"Invalid LED number: {req.led_number}")
-                return SetLEDResponse(success=False)
+        if 0 <= req.led_number < len(self.led_states):
+            self.led_states[req.led_number] = req.state
+            rospy.loginfo(f"LED {req.led_number} set to {req.state}")
+            return SetLEDResponse(success=True)
+        else:
+            rospy.logwarn(f"Invalid LED number: {req.led_number}")
+            return SetLEDResponse(success=False)
 
     def print_states(self, event):
-        with self.lock:
             rospy.loginfo(f"LED states: {self.led_states}")
 
 if __name__ == '__main__':
